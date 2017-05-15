@@ -8,8 +8,8 @@ NSString* host = @"";
 NSString* scheme = @"";
 
 - (void)pluginInitialize {
-  host = [[self.commandDelegate settings] objectForKey:@"DEEPLINK_HOST"];
-  scheme = [[self.commandDelegate settings] objectForKey:@"URL_SCHEME"];
+  host = [[self.commandDelegate settings] objectForKey:@"deeplink_host"];
+  scheme = [[self.commandDelegate settings] objectForKey:@"url_scheme"];
   _handlers = [[NSMutableArray alloc] init];
 }
 
