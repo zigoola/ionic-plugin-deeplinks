@@ -4,7 +4,12 @@
 
 @implementation IonicDeeplinkPlugin
 
+NSString* host = @"";
+NSString* scheme = @"";
+
 - (void)pluginInitialize {
+  host = [[self.commandDelegate settings] objectForKey:@"DEEPLINK_HOST"];
+  scheme = [[self.commandDelegate settings] objectForKey:@"URL_SCHEME"];
   _handlers = [[NSMutableArray alloc] init];
 }
 
@@ -37,6 +42,11 @@
 
 - (BOOL)handleLink:(NSURL *)url {
   NSLog(@"IonicDeepLinkPlugin: Handle link (internal) %@", url);
+
+  if (![url.host isEqualToString:host] && ![url.scheme isEqualToString:scheme]){
+    NSLog(@"IonicDeepLinkPlugin: skip handling link as it is not in scope");
+    return NO;
+  }
 
   _lastEvent = [self createResult:url];
 
